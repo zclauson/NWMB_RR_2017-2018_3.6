@@ -26,7 +26,7 @@ public class MasterOp {
     public Servo servo1 = null;
     public Servo servo2 = null;
 
-    public ColorSensor color1 = null;
+    public ModernRoboticsI2cColorSensor color1 = null;
 
     public int v_state=0;
     public int time=0;
@@ -51,6 +51,12 @@ motor3   _______________________________  motor4
         |                               |
         |               back            |
 motor1  |_______________________________| motor2
+
+
+
+
+       We are using the right class for the Modern Robotics color sensor and it should work better.
+       Red is 10 in the COLOR_NUMBER index and blue is 3
 
     */
 
@@ -108,7 +114,9 @@ motor1  |_______________________________| motor2
         servo2.setPosition(.50);
 
 //        color1 = colorSensor
-        color1 = HM.colorSensor.get("color1");
+        color1 = HM.get(ModernRoboticsI2cColorSensor.class,"color1");
+        // this makes the code into active mode making the color more easy to detect
+        color1.writeCommand(ModernRoboticsI2cColorSensor.Command.ACTIVE_LED);
         color1.enableLed(true);
     }
 

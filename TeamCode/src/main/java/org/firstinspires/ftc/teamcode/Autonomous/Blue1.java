@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.*;
 
 import org.firstinspires.ftc.teamcode.MasterOp;
@@ -14,7 +15,7 @@ public class Blue1 extends OpMode{
     @Override
     public void init() {
         mo.init(hardwareMap);
-        mo.color1.setI2cAddress(mo.color1.getI2cAddress());
+
     }
 
     @Override
@@ -31,18 +32,20 @@ public class Blue1 extends OpMode{
                 mo.run_using_encoders();
                 mo.motor7.setPower(.1);
                 //this means whether the motor goes 200 impulses or blue is detected or red is detected
-                if (mo.color1.blue() > 0 || mo.color1.red() > 0|| mo.motor7.getCurrentPosition() > 450){
+                // red is 10 in the COLOR_NUMBER  index and blue is 3
+                if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10 ||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==3|| mo.motor7.getCurrentPosition() > 450){
                     mo.shutdownAllMotors();
                     mo.resetEncoders();
                     mo.v_state++;
                 }
                 break;
             case 2:
-                    if (mo.color1.blue() > 0) {
+                    if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==3) {
                         mo.blueDetected=true;
                         mo.run_using_encoders();
                         mo.PowerForB(-.3, 150);
-                    } else if (mo.color1.red() > 0) {
+                    } else if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10) {
                         mo.blueDetected=false;
                         mo.run_using_encoders();
                         mo.PowerForB(.3,150);

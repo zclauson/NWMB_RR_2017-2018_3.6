@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -15,7 +16,7 @@ public class Red1 extends OpMode {
     @Override
     public void init() {
         mo.init(hardwareMap);
-        mo.color1.setI2cAddress(mo.color1.getI2cAddress());
+
     }
 
     @Override
@@ -31,7 +32,8 @@ public class Red1 extends OpMode {
             case 1:
                 mo.run_using_encoders();
                 mo.motor7.setPower(.1);
-                if ( mo.color1.blue() > 0 || mo.color1.red() > 0||mo.motor7.getCurrentPosition() > 450) {
+                if ( mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==3 ||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10||mo.motor7.getCurrentPosition() > 450) {
                     mo.resetEncoders();
                     mo.shutdownAllMotors();
                     mo.v_state++;
@@ -39,11 +41,11 @@ public class Red1 extends OpMode {
                 break;
 
             case 2:
-                if (mo.color1.red() > 0) {
+                if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10) {
                     mo.redDetected = true;
                     mo.run_using_encoders();
                     mo.PowerForB(-.3, 150);
-                } else if (mo.color1.blue() > 0) {
+                } else if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==3) {
                     mo.redDetected = false;
                     mo.run_using_encoders();
                     mo.PowerForB(.3, 150);

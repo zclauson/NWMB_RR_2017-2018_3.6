@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -38,7 +39,8 @@ public class Red2 extends OpMode {
                 mo.run_using_encoders();
 //                mo.v_state++;
                 mo.motor7.setPower(.1);
-                if ( mo.color1.blue() > 0 || mo.color1.red() > 0 ||mo.motor7.getCurrentPosition()> 450) {
+                if ( mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) == 3
+                        || mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10 ||mo.motor7.getCurrentPosition()> 450) {
                     mo.resetEncoders();
                     mo.shutdownAllMotors();
                     mo.v_state++;
@@ -50,11 +52,11 @@ public class Red2 extends OpMode {
                 //  If the color red is detected, then the robot moves backwards at power of 1 for 100 impulses.
                 //  If the color blue is detected, then the robot moves forwards at power of 1 for 100 impulse
 //                mo.PowerForB(.3,100);
-                 if (mo.color1.red() > 0){
+                 if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10){
                     mo.redDetected = true;
                     mo.PowerForB(-.3, 100);
                 }
-                else if (mo.color1.blue() > 0) {
+                else if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==3) {
                     mo.redDetected = false;
                     mo.PowerForB(.3, 100);
                 } else if(mo.time > 400){
