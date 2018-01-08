@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.SyncdDevice;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -106,7 +107,7 @@ motor1  |_______________________________| motor2
         servo2 = HM.servo.get("servo2");
         servo2.setPosition(.50);
 
-        //color1 = colorSensor
+//        color1 = colorSensor
         color1 = HM.colorSensor.get("color1");
         color1.enableLed(true);
     }

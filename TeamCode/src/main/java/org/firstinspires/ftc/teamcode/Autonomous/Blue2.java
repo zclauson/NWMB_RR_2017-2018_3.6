@@ -31,6 +31,7 @@ public class Blue2 extends OpMode {
                 break;
             case 1:
                 mo.run_using_encoders();
+//                mo.v_state++;
                 mo.motor7.setPower(.1);
                 if ( mo.color1.blue() > 0 || mo.color1.red() > 0 ||mo.motor7.getCurrentPosition() > 450){
                     mo.shutdownAllMotors();
@@ -39,14 +40,16 @@ public class Blue2 extends OpMode {
                 }
                 break;
             case 2:
+
+//                mo.PowerForB(.3, 100);
                 if (mo.color1.blue() > 0) {
                     mo.blueDetected=true;
                     mo.run_using_encoders();
-                    mo.PowerForB(-.5, 100);
+                    mo.PowerForB(-.3, 100);
                 } else if (mo.color1.red() > 0) {
                     mo.blueDetected=false;
                     mo.run_using_encoders();
-                    mo.PowerForB(.5,100);
+                    mo.PowerForB(.3,100);
                 }
                 else if (mo.time > 12){
                     mo.v_state++;
@@ -58,6 +61,7 @@ public class Blue2 extends OpMode {
                 break;
             case 3:
                 mo.run_using_encoders();
+//                mo.v_state++;
                 mo.motor7.setPower(-.2);
                 if (mo.motor7.getCurrentPosition() < -300){
                     mo.shutdownAllMotors();
@@ -67,22 +71,36 @@ public class Blue2 extends OpMode {
                 break;
             case 4:
                 mo.run_using_encoders();
+//                mo.PowerForB(.3,1800);
+
                 if (mo.blueDetected){
-                    mo.PowerForB(.5,1000);
+                    mo.PowerForB(.3,2200);
                 }
                 else if(!mo.blueDetected) {
-                    mo.PowerForB(.5, 500);
+                    mo.PowerForB(.3, 1800);
                 }
 
 
                 break;
             case 5:
                 mo.run_using_encoders();
-                mo.PowerR(.5,300);
+                mo.PowerR(.3,1050);
                 break;
             case 6:
                 mo.run_using_encoders();
-                mo.PowerForB(.5,200);
+                mo.PowerForB(.3,500);
+                break;
+            case 7:
+                mo.run_using_encoders();
+                mo.servo1.setPosition(.9);
+                mo.servo2.setPosition(-.9);
+                if (time >12){
+                    mo.PowerForB(-3,50);
+                } else {
+                    time++;
+                }
+
+
                 break;
 
 

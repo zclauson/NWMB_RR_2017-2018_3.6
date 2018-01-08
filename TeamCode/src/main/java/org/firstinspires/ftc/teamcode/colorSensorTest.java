@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import android.graphics.Color;
 import android.view.Display;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Created by Zachary Clauson on 1/3/2018.
@@ -30,5 +32,6 @@ public class colorSensorTest extends OpMode {
         if (gamepad1.b){
             mo.color1.enableLed(false);
         }
+
     }
 }
