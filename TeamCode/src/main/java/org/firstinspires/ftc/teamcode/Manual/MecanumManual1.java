@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Manual;
 
 import android.view.Display;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
@@ -20,6 +21,7 @@ public class MecanumManual1 extends OpMode {
     public void init() {
     mo.init(hardwareMap);
         mo.color1.setI2cAddress(mo.color1.getI2cAddress());
+        mo.color1.enableLed(false);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MecanumManual1 extends OpMode {
         float g1RightX= gamepad1.right_stick_x;
         float g1RightY= gamepad1.right_stick_y;
 
-        float armpower = -gamepad2.right_stick_y;
+        float armpower = gamepad2.right_stick_y;
 
         // I switched the plus and minus signs for g1RightX
         float  FL= -g1LeftY + g1RightX -g1RightY;
@@ -81,10 +83,24 @@ public class MecanumManual1 extends OpMode {
             mo.servo1.setPosition(.25);
             mo.servo2.setPosition(.50 );
         }
+        if (gamepad1.x){
+            mo.zeroTurnL(1,3400);
+        }
+        if (gamepad1.y){
+            mo.servo1.setPosition(.575);
+            mo.servo2.setPosition(-.2);
+        }
+        if (gamepad2.right_trigger >.1){
+            mo.motor7.setPower(-.3);
+        }
+        if (gamepad2.left_trigger> .1){
+            mo.motor7.setPower(.3);
+        }
 
 
-        telemetry.addData("red: ",mo.color1.red());
-        telemetry.addData("blue: ",mo.color1.blue());
+
+        telemetry.addData("color: ","red = 3 blue = 10");
+        telemetry.addData(" color: ",mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
         telemetry.addData("motor1: ", BL);
         telemetry.addData("motor2: ", BR);
         telemetry.addData("motor3: ", FL);

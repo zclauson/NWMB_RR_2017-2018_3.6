@@ -59,13 +59,13 @@ class Red1_Ken extends OpMode {
 						{
 						mo.redDetected = true;	 // Red Ball
 						mo.run_using_encoders();
-						mo.PowerForB(-1, 100);
+						mo.PowerF(-1, 100);
 						} 
 					else if (mo.color1.blue() > 0)
 						{									
 						mo.redDetected = false;	 // Blue Ball
 						mo.run_using_encoders();
-						mo.PowerForB(1, 100);
+						mo.PowerF(1, 100);
 						mo.v_state=4;
 						}
 				break;
@@ -90,10 +90,10 @@ class Red1_Ken extends OpMode {
 					mo.run_using_encoders();
 					if (mo.redDetected)       // Red Ball
 					{
-						mo.PowerForB(-1,400);
+						mo.PowerF(-1,400);
 					} else if (!mo.redDetected)  // Blue Ball
 						{
-							mo.PowerForB(-1,500);
+							mo.PowerF(-1,500);
 						}
 				break;
 					
@@ -107,7 +107,7 @@ class Red1_Ken extends OpMode {
 				case 7:
 					//  This code moves the robot forward to position in the triangle in front of the glyph holder.
 					mo.run_using_encoders();
-					mo.PowerForB(1,600);
+					mo.PowerF(1,600);
 					break;
 					
 				case 8:
@@ -119,7 +119,7 @@ class Red1_Ken extends OpMode {
 						
 				case 9:
 					// This code moves the robot and glyph towards the glyph holder with the intention of putting the glyph into the center column.
-					mo.PowerForB(1,300);
+					mo.PowerF(1,300);
 					
 				break;
 					

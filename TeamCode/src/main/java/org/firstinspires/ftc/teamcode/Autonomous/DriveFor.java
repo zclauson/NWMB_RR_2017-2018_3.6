@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.MasterOp;
 
@@ -28,7 +26,7 @@ public class DriveFor extends OpMode {
                 mo.v_state++;
 
             case 1:
-                mo.PowerForB(.3,200);
+                mo.PowerF(.3,200);
                 mo.v_state++;
 
             default:

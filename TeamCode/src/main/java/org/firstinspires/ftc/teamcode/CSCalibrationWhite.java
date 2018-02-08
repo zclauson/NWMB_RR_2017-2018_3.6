@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 /**
  * Created by Zachary Clauson on 1/3/2018.
  */
-@TeleOp(name = "colorTest",group = "colorTest")
-public class colorSensorTest extends OpMode {
+@TeleOp(name = "CSCalibrationWhite",group = "CSCalibrationWhite")
+public class CSCalibrationWhite extends OpMode {
     MasterOp mo= new MasterOp();
     @Override
     public void init() {
@@ -23,9 +23,11 @@ public class colorSensorTest extends OpMode {
     public void loop() {
         telemetry.addData("red: ",mo.color1.red());
         telemetry.addData("blue: ",mo.color1.blue());
-        telemetry.addData("alpha: ",mo.color1.alpha());
+        telemetry.addData("alpha: ",mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
         telemetry.addData("argb: ",mo.color1.argb());
         telemetry.addData("I2C Address: ",mo.color1.getI2cAddress());
+        mo.color1.writeCommand(ModernRoboticsI2cColorSensor.Command.CALIBRATE_WHITE);
+
         if (gamepad1.a){
             mo.color1.enableLed(true);
         }

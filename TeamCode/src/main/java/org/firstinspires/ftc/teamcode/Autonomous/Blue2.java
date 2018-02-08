@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import android.graphics.Path;
-
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.MasterOp;
@@ -28,7 +25,14 @@ public class Blue2 extends OpMode {
             case 0:
                 mo.resetEncoders();
                 mo.shutdownAllMotors();
-                mo.v_state++;
+                mo.servo1.setPosition(.25);
+                mo.servo2.setPosition(.50);
+                mo.motor5.setPower(-1);
+                if (mo.motor5.getCurrentPosition()> 100){
+                    mo.v_state++;
+                    mo.shutdownAllMotors();
+                    mo.resetEncoders();
+                }
                 break;
             case 1:
                 mo.run_using_encoders();
@@ -43,17 +47,22 @@ public class Blue2 extends OpMode {
                 break;
             case 2:
 
-//                mo.PowerForB(.3, 100);
-                if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==3) {
+//                mo.PowerF(.3, 100);
+                if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==2 ||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==3||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==4 ) {
                     mo.blueDetected=true;
                     mo.run_using_encoders();
-                    mo.PowerForB(-.3, 100);
-                } else if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==10) {
+                    mo.PowerF(-.3, 100);
+                } else if (mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER) ==9||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==10||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==11||
+                        mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER)==12) {
                     mo.blueDetected=false;
                     mo.run_using_encoders();
-                    mo.PowerForB(.3,100);
+                    mo.PowerF(.3,100);
                 }
-                else if (mo.time > 12){
+                else if (mo.time > 100){
                     mo.v_state++;
                 }
                 else{
@@ -73,13 +82,13 @@ public class Blue2 extends OpMode {
                 break;
             case 4:
                 mo.run_using_encoders();
-//                mo.PowerForB(.3,1800);
+//                mo.PowerF(.3,1800);
 
                 if (mo.blueDetected){
-                    mo.PowerForB(.3,2200);
+                    mo.PowerF(.3,2200);
                 }
                 else if(!mo.blueDetected) {
-                    mo.PowerForB(.3, 1800);
+                    mo.PowerF(.3, 1800);
                 }
 
 
@@ -90,19 +99,18 @@ public class Blue2 extends OpMode {
                 break;
             case 6:
                 mo.run_using_encoders();
-                mo.PowerForB(.3,500);
+                mo.PowerF(.3,500);
                 break;
             case 7:
                 mo.run_using_encoders();
                 mo.servo1.setPosition(.9);
                 mo.servo2.setPosition(-.9);
-                if (time >12){
-                    mo.PowerForB(-3,50);
-                } else {
+                if (time > 12){
+                    mo.PowerF(-.3,100);
+                }
+                else{
                     time++;
                 }
-
-
                 break;
 
 
@@ -112,8 +120,9 @@ public class Blue2 extends OpMode {
                 break;
         }
         telemetry.addData("V-state: " ,mo.v_state);
-        telemetry.addData("blue: ", mo.color1.blue());
-        telemetry.addData("red: ",mo.color1.red());
+        telemetry.addData("time", mo.time);
+        telemetry.addData("color: ","red = 3 blue = 10");
+        telemetry.addData(" color: ",mo.color1.readUnsignedByte(ModernRoboticsI2cColorSensor.Register.COLOR_NUMBER));
         telemetry.addData("runtime: ", getRuntime());
         telemetry.addData("blueDetected: ",mo.blueDetected);
         telemetry.addData("motor1: ", mo.motor1.getCurrentPosition());

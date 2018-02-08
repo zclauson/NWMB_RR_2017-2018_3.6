@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.util.Hardware;
 
 import org.firstinspires.ftc.teamcode.MasterOp;
 
@@ -38,7 +37,7 @@ public class ParkinZone extends OpMode {
              }
              break;
          case 2:
-             mo.PowerForB(1,200);
+             mo.PowerF(1,200);
              break;
          case 3:
              mo.run_using_encoders();
